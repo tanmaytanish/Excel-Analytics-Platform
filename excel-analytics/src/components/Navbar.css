@@ -11,7 +11,7 @@
     z-index: 1000;
     display: flex;
     flex-direction: column; /* Stack logo and menu vertically */
-    margin-bottom: 15%;
+    margin-bottom: 50px;
   }
   
   .nav-container {
