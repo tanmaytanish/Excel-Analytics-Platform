@@ -1,0 +1,68 @@
+/* src/styles/Signup.css */
+
+/* Centering the signup box in the middle */
+.signup-main {
+    background-color: #f8f9fa;
+    min-height: 100vh; /* Full height of the viewport */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 70px; /* Extra safeguard for fixed navbar */
+}
+
+/* Styling the submit button */
+.submit-btn {
+    background-color: #28a745; /* Green color */
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Focus effect */
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Other general styles */
+.col-md-4 {
+    width: 320px;
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 20px rgba(0, 128, 0, 0.2);
+    border: 2px solid #198754;
+}
+
+.MuiFormControl-root {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+input:focus,
+button:focus,
+a:focus {
+    outline: 2px solid #198754;
+    outline-offset: 2px;
+}
+
+@media (max-width: 576px) {
+    .signup-main {
+        padding: 20px;
+    }
+    .col-md-4 {
+        width: 100%;
+        padding: 20px;
+    }
+}
