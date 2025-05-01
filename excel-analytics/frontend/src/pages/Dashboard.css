@@ -1,0 +1,87 @@
+/* src/styles/Dashboard.css */
+
+/* Container for the Dashboard */
+.dashboard-container {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 70px); /* Adjust for navbar height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+}
+
+/* Welcome Message Section */
+.welcome-message {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* File Upload Section */
+.upload-section {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 20px rgba(0, 128, 0, 0.2);
+    border: 2px solid #198754;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* File Input Button */
+.upload-btn {
+    background-color: #28a745; /* Green color */
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+/* Hover effect */
+.upload-btn:hover {
+    background-color: #218838;
+}
+
+/* Focus effect */
+.upload-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* File Info Display */
+.file-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.file-info p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+@media (max-width: 576px) {
+    .dashboard-container {
+        padding: 20px;
+    }
+
+    .upload-section {
+        width: 100%;
+        padding: 20px;
+    }
+}
