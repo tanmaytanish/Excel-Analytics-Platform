@@ -1,12 +1,12 @@
-/* src/styles/Login.css */
+/* src/styles/Signup.css */
 
-.main {
+.signup-main {
     background-color: #f8f9fa;
-    min-height: calc(100vh - 70px); /* Adjust for navbar height */
+    min-height: calc(100vh - 70px);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 70px; /* Extra safeguard for fixed navbar */
+    padding-top: 70px;
 }
 
 form {
@@ -73,7 +73,7 @@ a:focus {
 }
 
 @media (max-width: 576px) {
-    .main {
+    .signup-main {
         padding: 20px;
     }
     .col-md-4 {

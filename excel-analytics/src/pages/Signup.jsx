@@ -1,11 +1,13 @@
-// src/pages/Login.js
+// src/pages/Signup.js
 
 import React from "react";
 import { Container, Col } from "react-bootstrap";
-import "./Login.css";
+import "./Signup.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,24 +17,20 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import MyButton from "../components/MyButton";
-// import Navbar from "../components/Navbar";
 
-function Login() {
+function Signup() {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+    const handleMouseDownPassword = (event) => event.preventDefault();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Your login logic here
+        // Handle signup logic here
     };
 
     return (
-        <div className="main">
-            {/* <Navbar /> */}
+        <div className="signup-main">
             <Container
                 className="d-flex justify-content-center align-items-center"
                 style={{ minHeight: "calc(100vh - 70px)", marginTop: "70px" }}
@@ -41,13 +39,26 @@ function Login() {
                     md={4}
                     className="d-flex flex-column justify-content-center align-items-center rounded border border-success p-4 bg-light"
                 >
-                    <h3 className="mb-4 text-center">Login</h3>
+                    <h3 className="mb-4 text-center">Sign Up</h3>
 
                     <form className="w-100" onSubmit={handleSubmit}>
-                        {/* Email Field */}
+                        {/* Username */}
                         <div className="mb-4">
                             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                                 <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                                <TextField
+                                    id="username"
+                                    label="Username"
+                                    variant="standard"
+                                    fullWidth
+                                />
+                            </Box>
+                        </div>
+
+                        {/* Email */}
+                        <div className="mb-4">
+                            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                                <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
                                 <TextField
                                     id="email"
                                     label="Email"
@@ -57,12 +68,12 @@ function Login() {
                             </Box>
                         </div>
 
-                        {/* Password Field */}
+                        {/* Password */}
                         <div className="mb-4">
                             <FormControl sx={{ width: "100%" }} variant="standard">
-                                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                <InputLabel htmlFor="signup-password">Password</InputLabel>
                                 <Input
-                                    id="standard-adornment-password"
+                                    id="signup-password"
                                     type={showPassword ? "text" : "password"}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -79,13 +90,13 @@ function Login() {
                             </FormControl>
                         </div>
 
-                        {/* Login Button */}
-                        <br /><br />
-                        <MyButton label="Submit" />
+                        {/* Submit Button */}
+                        <br />
+                        <MyButton label="Register" />
 
-                        {/* Sign Up Link */}
+                        {/* Login Link */}
                         <p className="mt-3 text-center">
-                            New User? <Link to="/signup">Sign Up</Link>
+                            Already have an account? <Link to="/login">Login</Link>
                         </p>
                     </form>
                 </Col>
@@ -94,4 +105,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;

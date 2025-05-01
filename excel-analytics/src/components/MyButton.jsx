@@ -1,8 +1,11 @@
 import React from 'react'
+import Button from '@mui/material/Button';
 
-function MyButton() {
+function MyButton({label}) {
   return (
-    <div>MyButton</div>
+    <>
+    <Button variant="outlined">{label}</Button>
+    </>
   )
 }
 
