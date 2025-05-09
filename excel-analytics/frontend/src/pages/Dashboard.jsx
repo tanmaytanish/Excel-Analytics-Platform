@@ -1,74 +1,97 @@
-// src/pages/Dashboard.js
-
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import "./Dashboard.css"; // Import your CSS file for styling
+import "./Dashboard.css";
+import { FiUpload } from "react-icons/fi";
 
-function Dashboard() {
-    const [file, setFile] = useState(null);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+const Dashboard = () => {
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
 
-    const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile) {
-            const validTypes = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel", "text/csv"];
-            if (validTypes.includes(selectedFile.type)) {
-                setFile(selectedFile);
-                setError("");
-            } else {
-                setError("Please upload a valid Excel (.xlsx, .xls) or CSV file.");
-            }
-        }
-    };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    if (validateFile(droppedFile)) {
+      setFile(droppedFile);
+      handleFileUpload(droppedFile); // auto-submit
+    }
+  };
 
-    const handleFileUpload = async () => {
-        if (!file) {
-            setError("Please select a file first.");
-            return;
-        }
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
 
-        const formData = new FormData();
-        formData.append("file", file);
+  const handleFileSelect = (e) => {
+    const selectedFile = e.target.files[0];
+    if (validateFile(selectedFile)) {
+      setFile(selectedFile);
+      handleFileUpload(selectedFile); // auto-submit
+    }
+  };
 
-        try {
-            const res = await fetch("http://localhost:5000/upload", {
-                method: "POST",
-                body: formData,
-            });
+  const validateFile = (selectedFile) => {
+    const allowedTypes = [
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "text/csv",
+    ];
+    if (!selectedFile) {
+      setError("Please select a file.");
+      return false;
+    }
+    if (!allowedTypes.includes(selectedFile.type)) {
+      setError("Only .xlsx, .xls, or .csv files are allowed.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
 
-            const data = await res.json();
-            if (res.ok) {
-                alert("File uploaded successfully.");
-                // You can also redirect or update state after successful upload
-                navigate("/analytics"); // Redirect to the analytics page
-            } else {
-                setError(data.message || "File upload failed.");
-            }
-        } catch (err) {
-            setError("Error uploading file.");
-        }
-    };
+  const handleFileUpload = (fileToUpload) => {
+    // Actual upload logic here (e.g., FormData + axios/fetch)
+    console.log("Uploading file:", fileToUpload.name);
+  };
 
-    return (
-        <div className="dashboard-main">
-            <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "calc(100vh - 70px)", marginTop: "70px" }}>
-                <Row className="d-flex flex-column justify-content-center align-items-center rounded border p-4 bg-light">
-                    <Col md={6} className="text-center">
-                        <h3>Welcome to Excel Analytics Platform</h3>
-                        <p className="mt-3">Upload your Excel or CSV file to analyze data.</p>
-                    </Col>
+  return (
+    <div className="dashboard-container">
+      <h2 className="main-title">ChartSense Excel Analytics</h2>
+      <p className="subtitle">
+        Upload Excel or CSV files to create beautiful visualizations and discover insights from your data
+      </p>
 
-                    <Col md={6}>
-                        <input type="file" onChange={handleFileChange} />
-                        {error && <p style={{ color: "red" }}>{error}</p>}
-                        <button className="submit-btn mt-3" onClick={handleFileUpload}>Upload File</button>
-                    </Col>
-                </Row>
-            </Container>
+      <div className="nav-buttons">
+        <div className="tab active">Upload</div>
+        <div className="tab">Visualize</div>
+        <div className="tab">Insights</div>
+      </div>
+
+      <div
+        className="upload-box"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
+        <div className="upload-icon">
+          <FiUpload />
         </div>
-    );
-}
+        <div className="upload-instruction">Drag and drop your file here</div>
+        <div className="upload-subtext">
+          Support for .XLSX, .XLS, and .CSV files
+        </div>
+
+        <label htmlFor="file-upload" className="upload-button">
+          Browse Files
+        </label>
+        <input
+          type="file"
+          id="file-upload"
+          accept=".xlsx,.xls,.csv"
+          style={{ display: "none" }}
+          onChange={handleFileSelect}
+        />
+
+        {file && <div className="filename">Selected: {file.name}</div>}
+        {error && <div className="error">{error}</div>}
+      </div>
+    </div>
+  );
+};
 
 export default Dashboard;

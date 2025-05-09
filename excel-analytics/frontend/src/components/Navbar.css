@@ -1,66 +1,117 @@
 /* Navbar.css */
 
 .navbar {
-    background-color: #f5f5dc; /* beige */
-    padding: 0.75rem 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column; /* Stack logo and menu vertically */
-    margin-bottom: 50px;
-  }
-  
-  .nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Keep logo at left */
-    max-width: 1200px;
-    margin: 0 auto;
+  background-color: #ffffff; /* White background for the main navbar */
+  padding: 0; /* Remove padding as we'll use padding within nav-container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 
+.top-bar {
+  background-color: #2c3e50; /* Dark color for the top bar */
+  height: 5px; /* Thin height for the top bar */
+  width: 100%;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribute items to ends */
+  width: 90%; /* Adjust width as needed */
+  max-width: 1200px; /* Max width for larger screens */
+  margin: 0 auto; /* Center the container */
+  padding: 0.75rem 0; /* Padding for the content inside nav-container */
+}
+
+.nav-logo {
+  font-size: 1.6rem; /* Slightly larger font size */
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem; /* Spacing between buttons */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  padding: 0.6rem 1.2rem; /* Padding for buttons */
+  border-radius: 4px; /* Slightly rounded corners */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.nav-icon {
+  font-size: 1rem; /* Icon size */
+}
+
+.btn-login {
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc; /* Light border */
+}
+
+.btn-login:hover {
+  background-color: #f0f0f0;
+  border-color: #c0c0c0;
+}
+
+.btn-signup {
+  color: #ffffff;
+  background-color: #8a2be2; /* Purple/Violet color from image */
+  border: 1px solid #8a2be2;
+}
+
+.btn-signup:hover {
+  background-color: #7a21ce; /* Slightly darker purple on hover */
+  border-color: #7a21ce;
+}
+
+/* Spacing for content below the fixed navbar */
+/* This is a general approach. You might need to adjust the value
+   based on the final height of your navbar after styling. */
+body {
+  padding-top: 60px; /* Adjust this value based on your navbar's height */
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start in column layout */
+    padding: 0.75rem 1.5rem; /* Add padding on smaller screens */
   }
-  
-  .nav-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-  }
-  
+
   .nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 1rem auto 0; /* Margin top to push it to the bottom */
-    padding: 0;
-    justify-content: center; /* Center the menu items horizontally */
-    width: 100%; /* Take full width to center effectively */
+    flex-direction: column;
+    align-items: flex-start; /* Align buttons to the start */
+    gap: 0.5rem; /* Reduce gap between buttons on small screens */
+    width: 100%;
+    margin-top: 1rem;
   }
-  
-  .nav-item {
-    display: flex;
-    align-items: center;
+
+  .nav-logo {
+    margin-bottom: 1rem; /* Add space below logo on small screens */
   }
-  
+
   .nav-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.2s ease-in-out;
+    width: 100%; /* Make buttons full width on small screens */
+    justify-content: center; /* Center text and icon in button */
   }
-  
-  .nav-link:hover {
-    color: #007bff; /* Bootstrap blue */
-  }
-  
-  @media (max-width: 768px) {
-    .nav-menu {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-  }
+}

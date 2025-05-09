@@ -1,87 +1,158 @@
-/* src/styles/Dashboard.css */
+/* --- Additional styles to match ChartSense look --- */
 
-/* Container for the Dashboard */
-.dashboard-container {
-    background-color: #f8f9fa;
-    min-height: calc(100vh - 70px); /* Adjust for navbar height */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 70px;
+/* Title Section */
+.main-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e1e2d;
+    text-align: center;
 }
 
-/* Welcome Message Section */
-.welcome-message {
+.subtitle {
+    font-size: 16px;
+    color: #6c757d;
+    margin-top: 10px;
     text-align: center;
-    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Tabs Section */
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 6px;
     font-weight: 500;
-    color: #333;
+    color: #495057;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tab:hover {
+    background-color: #e2e6ea;
+}
+
+.tab.active {
+    background-color: #e9dcff;
+    color: #7e3af2;
+    border-color: #7e3af2;
+}
+
+/* Upload Drop Area */
+.upload-box {
+    border: 2px dashed #ced4da;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.upload-icon {
+    font-size: 40px;
+    color: #7e3af2;
+    margin-bottom: 10px;
+}
+
+.upload-instruction {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.upload-subtext {
+    font-size: 14px;
+    color: #6c757d;
     margin-bottom: 20px;
 }
 
-/* File Upload Section */
-.upload-section {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0px 4px 20px rgba(0, 128, 0, 0.2);
-    border: 2px solid #198754;
-    width: 80%;
-    max-width: 600px;
-}
-
-/* File Input Button */
-.upload-btn {
-    background-color: #28a745; /* Green color */
+.upload-button {
+    background-color: #7e3af2;
     color: white;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
 }
 
-/* Hover effect */
-.upload-btn:hover {
-    background-color: #218838;
+.upload-button:hover {
+    background-color: #5a32a3;
 }
 
-/* Focus effect */
-.upload-btn:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* File Info Display */
-.file-info {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.file-info p {
-    font-size: 14px;
+.upload-submit {
+    background-color: #5a32a3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     font-weight: 500;
-    color: #333;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-@media (max-width: 576px) {
-    .dashboard-container {
-        padding: 20px;
-    }
+.upload-submit:hover {
+    background-color: #472993;
+}
 
-    .upload-section {
-        width: 100%;
-        padding: 20px;
-    }
+/* File name and error message */
+.filename {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+.upload-status {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.upload-success {
+  color: #28a745; /* green */
+}
+
+.upload-error {
+  color: red;
+}
+
+/* --- Loader Spinner --- */
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #7e3af2;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 0.8s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
