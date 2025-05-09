@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
 import { FiUpload } from "react-icons/fi";
+import { parseFile } from "../utils/parseFile";
+import DataPreview from "../components/DataPreview";
+import BarChart from "../components/BarChart";
+import ScatterPlot3D from "../components/ScatterPlot3D";
 
 const Dashboard = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
+  const [data, setData] = useState([]);
 
-  const handleDrop = (e) => {
+  const handleDrop = async (e) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
     if (validateFile(droppedFile)) {
       setFile(droppedFile);
-      handleFileUpload(droppedFile); // auto-submit
+      await handleFileUpload(droppedFile);
     }
   };
 
@@ -19,11 +24,11 @@ const Dashboard = () => {
     e.preventDefault();
   };
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const selectedFile = e.target.files[0];
     if (validateFile(selectedFile)) {
       setFile(selectedFile);
-      handleFileUpload(selectedFile); // auto-submit
+      await handleFileUpload(selectedFile);
     }
   };
 
@@ -45,14 +50,20 @@ const Dashboard = () => {
     return true;
   };
 
-  const handleFileUpload = (fileToUpload) => {
-    // Actual upload logic here (e.g., FormData + axios/fetch)
-    console.log("Uploading file:", fileToUpload.name);
+  const handleFileUpload = async (fileToUpload) => {
+    try {
+      const parsedData = await parseFile(fileToUpload);
+      setData(parsedData);
+      setError("");
+    } catch (err) {
+      setError("Failed to parse file.");
+      setData([]);
+    }
   };
 
   return (
     <div className="dashboard-container">
-      <h2 className="main-title">ChartSense Excel Analytics</h2>
+      <h2 className="main-title">VisuaLyze</h2>
       <p className="subtitle">
         Upload Excel or CSV files to create beautiful visualizations and discover insights from your data
       </p>
@@ -90,6 +101,15 @@ const Dashboard = () => {
         {file && <div className="filename">Selected: {file.name}</div>}
         {error && <div className="error">{error}</div>}
       </div>
+
+      {/* Show preview and charts only if data is loaded */}
+      {data.length > 0 && (
+        <>
+          <DataPreview data={data} />
+          <BarChart data={data} />
+          <ScatterPlot3D data={data} />
+        </>
+      )}
     </div>
   );
 };
