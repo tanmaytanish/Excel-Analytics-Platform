@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Dashboard.css";
 import { FiUpload } from "react-icons/fi";
 import { parseFile } from "../utils/parseFile";
 import DataPreview from "../components/DataPreview";
-import ChartPanel from "../components/ChartPanel"; // <-- import the new component
+import ChartPanel from "../components/ChartPanel";
 
 const Dashboard = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
+
+  // Ref for ChartPanel section
+  const chartPanelRef = useRef(null);
 
   const handleDrop = async (e) => {
     e.preventDefault();
@@ -60,6 +63,13 @@ const Dashboard = () => {
     }
   };
 
+  // Scroll to ChartPanel when Visualize is clicked
+  const handleVisualizeClick = () => {
+    if (chartPanelRef.current) {
+      chartPanelRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <h2 className="main-title">VisuaLyze</h2>
@@ -69,7 +79,7 @@ const Dashboard = () => {
 
       <div className="nav-buttons">
         <div className="tab active">Upload</div>
-        <div className="tab">Visualize</div>
+        <div className="tab" onClick={handleVisualizeClick}>Visualize</div>
         <div className="tab">Insights</div>
       </div>
 
@@ -105,7 +115,9 @@ const Dashboard = () => {
       {data.length > 0 && (
         <>
           <DataPreview data={data} />
-          <ChartPanel data={data} />
+          <div ref={chartPanelRef}>
+            <ChartPanel data={data} />
+          </div>
         </>
       )}
     </div>
