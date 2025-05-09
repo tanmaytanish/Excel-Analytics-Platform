@@ -283,3 +283,7 @@
   color: #7e3af2;
   border-color: #7e3af2;
 }
+.dashboard-container {
+  /* ...your existing styles... */
+  margin-bottom: 2rem; /* or padding-bottom: 2rem; */
+}

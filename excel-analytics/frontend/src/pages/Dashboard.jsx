@@ -3,8 +3,7 @@ import "./Dashboard.css";
 import { FiUpload } from "react-icons/fi";
 import { parseFile } from "../utils/parseFile";
 import DataPreview from "../components/DataPreview";
-import BarChart from "../components/BarChart";
-import ScatterPlot3D from "../components/ScatterPlot3D";
+import ChartPanel from "../components/ChartPanel"; // <-- import the new component
 
 const Dashboard = () => {
   const [file, setFile] = useState(null);
@@ -106,8 +105,7 @@ const Dashboard = () => {
       {data.length > 0 && (
         <>
           <DataPreview data={data} />
-          <BarChart data={data} />
-          <ScatterPlot3D data={data} />
+          <ChartPanel data={data} />
         </>
       )}
     </div>
