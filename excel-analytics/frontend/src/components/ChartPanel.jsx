@@ -52,6 +52,9 @@ function Bar3D({ data, xKey, yKey }) {
     }
   });
   const keys = Object.keys(groups);
+  if (!xKey || !yKey || keys.length === 0) {
+    return <div style={{ color: "#aaa", textAlign: "center", marginTop: 40 }}>No valid numeric data for 3D Bar Chart.</div>;
+  }
   return (
     <div style={{ height: 400, width: "100%", maxWidth: 800, margin: "0 auto" }}>
       <Canvas camera={{ position: [0, 10, 20], fov: 50 }}>
@@ -69,20 +72,23 @@ function Bar3D({ data, xKey, yKey }) {
 }
 
 function Scatter3D({ data, xKey, yKey, zKey }) {
+  const points = data
+    .map((row) => ({
+      x: Number(row[xKey]),
+      y: Number(row[yKey]),
+      z: Number(row[zKey]),
+    }))
+    .filter((pt) => !isNaN(pt.x) && !isNaN(pt.y) && !isNaN(pt.z));
+  if (!xKey || !yKey || !zKey || points.length === 0) {
+    return <div style={{ color: "#aaa", textAlign: "center", marginTop: 40 }}>No valid numeric data for 3D Scatter Plot.</div>;
+  }
   return (
     <div style={{ height: 400, width: "100%", maxWidth: 800, margin: "0 auto" }}>
       <Canvas camera={{ position: [10, 10, 10], fov: 50 }}>
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
-        {data.slice(0, 100).map((row, idx) => (
-          <mesh
-            key={idx}
-            position={[
-              Number(row[xKey]),
-              Number(row[yKey]),
-              Number(row[zKey]),
-            ]}
-          >
+        {points.slice(0, 100).map((pt, idx) => (
+          <mesh key={idx} position={[pt.x, pt.y, pt.z]}>
             <sphereGeometry args={[0.2, 16, 16]} />
             <meshStandardMaterial color="#7e3af2" opacity={0.8} transparent />
           </mesh>
@@ -136,7 +142,6 @@ const ChartPanel = ({ data, loading }) => {
         theme: "colored"
       });
     }
-    // Only show on upload, not on every render
     // eslint-disable-next-line
   }, [data]);
 
@@ -145,7 +150,15 @@ const ChartPanel = ({ data, loading }) => {
       setXAxis(catCols[0] || "");
       setYAxis(numericCols[0] || "");
       setZAxis("");
-    } else if (chartType === "scatter" || chartType === "3d-scatter") {
+    } else if (chartType === "scatter") {
+      setXAxis(numericCols[0] || "");
+      setYAxis(numericCols[1] || numericCols[0] || "");
+      setZAxis("");
+    } else if (chartType === "3d-bar") {
+      setXAxis(numericCols[0] || "");
+      setYAxis(numericCols[1] || numericCols[0] || "");
+      setZAxis("");
+    } else if (chartType === "3d-scatter") {
       setXAxis(numericCols[0] || "");
       setYAxis(numericCols[1] || numericCols[0] || "");
       setZAxis(numericCols[2] || numericCols[0] || "");
@@ -414,6 +427,23 @@ const ChartPanel = ({ data, loading }) => {
   // Single chart for selected type
   const chartComponent = renderChart(chartType, singleChartRef);
 
+  // Axis options logic
+  const xAxisOptions =
+    chartType === "pie"
+      ? catCols
+      : chartType === "3d-bar" || chartType === "3d-scatter"
+      ? numericCols
+      : numericCols.concat(catCols);
+
+  const yAxisOptions =
+    chartType === "pie"
+      ? []
+      : chartType === "3d-bar" || chartType === "3d-scatter"
+      ? numericCols
+      : numericCols;
+
+  const zAxisOptions = numericCols;
+
   return (
     <div className="chart-container">
       <ToastContainer />
@@ -446,10 +476,7 @@ const ChartPanel = ({ data, loading }) => {
             onChange={(e) => setXAxis(e.target.value)}
             disabled={showAll}
           >
-            {(chartType === "pie"
-              ? catCols
-              : numericCols.concat(catCols)
-            ).map((col) => (
+            {xAxisOptions.map((col) => (
               <option key={col} value={col}>
                 {col}
               </option>
@@ -464,7 +491,7 @@ const ChartPanel = ({ data, loading }) => {
             onChange={(e) => setYAxis(e.target.value)}
             disabled={chartType === "pie" || showAll}
           >
-            {numericCols.map((col) => (
+            {yAxisOptions.map((col) => (
               <option key={col} value={col}>
                 {col}
               </option>
@@ -480,7 +507,7 @@ const ChartPanel = ({ data, loading }) => {
               onChange={(e) => setZAxis(e.target.value)}
               disabled={showAll}
             >
-              {numericCols.map((col) => (
+              {zAxisOptions.map((col) => (
                 <option key={col} value={col}>
                   {col}
                 </option>
