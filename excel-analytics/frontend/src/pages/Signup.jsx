@@ -29,13 +29,10 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Trim any whitespace and check if the fields are empty
         const trimmedUsername = username.trim();
         const trimmedEmail = email.trim();
         const trimmedPassword = password.trim();
 
-        // Check for empty fields
         if (!trimmedUsername || !trimmedEmail || !trimmedPassword) {
             toast.error("All fields are required!", {
                 position: "top-center",
@@ -63,7 +60,6 @@ function Signup() {
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
-
                 toast.success("Signup successful! Redirecting to login...", {
                     position: "top-center",
                     autoClose: 1800,
@@ -105,14 +101,17 @@ function Signup() {
             >
                 <Col
                     md={4}
-                    className="d-flex flex-column justify-content-center align-items-center rounded border border-success p-4 bg-light"
+                    className="signup-card d-flex flex-column justify-content-center align-items-center"
                 >
-                    <h3 className="mb-4 text-center">Sign Up</h3>
+                    <div className="signup-logo">
+                        <img src="/images/visualyze-logo.png" alt="VisuaLyze" />
+                    </div>
+                    <h3 className="mb-4 text-center signup-title">Sign Up</h3>
                     <form className="w-100" onSubmit={handleSubmit}>
                         {/* Username */}
                         <div className="mb-4">
                             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                                <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: "#7e3af2", mr: 1, my: 0.5 }} />
                                 <TextField
                                     id="username"
                                     label="Username"
@@ -120,13 +119,17 @@ function Signup() {
                                     fullWidth
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
+                                    InputLabelProps={{ style: { color: "#7e3af2" } }}
+                                    InputProps={{
+                                        disableUnderline: false
+                                    }}
                                 />
                             </Box>
                         </div>
                         {/* Email */}
                         <div className="mb-4">
                             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                                <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                                <EmailIcon sx={{ color: "#7e3af2", mr: 1, my: 0.5 }} />
                                 <TextField
                                     id="email"
                                     label="Email"
@@ -134,13 +137,19 @@ function Signup() {
                                     fullWidth
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    InputLabelProps={{ style: { color: "#7e3af2" } }}
+                                    InputProps={{
+                                        disableUnderline: false
+                                    }}
                                 />
                             </Box>
                         </div>
                         {/* Password */}
                         <div className="mb-4">
                             <FormControl sx={{ width: "100%" }} variant="standard">
-                                <InputLabel htmlFor="signup-password">Password</InputLabel>
+                                <InputLabel htmlFor="signup-password" style={{ color: "#7e3af2" }}>
+                                    Password
+                                </InputLabel>
                                 <Input
                                     id="signup-password"
                                     type={showPassword ? "text" : "password"}
@@ -157,16 +166,14 @@ function Signup() {
                                             </IconButton>
                                         </InputAdornment>
                                     }
+                                    disableUnderline={false}
                                 />
                             </FormControl>
                         </div>
-                        {/* Submit Button */}
-                        <br />
                         <button className="submit-btn" type="submit" disabled={loading}>
                             {loading ? "Registering..." : "Register"}
                         </button>
-                        {/* Login Link */}
-                        <p className="mt-3 text-center">
+                        <p className="mt-3 text-center signup-link">
                             Already have an account? <Link to="/login">Login</Link>
                         </p>
                     </form>

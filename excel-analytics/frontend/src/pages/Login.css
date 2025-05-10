@@ -1,63 +1,113 @@
-/* src/styles/Login.css */
-
-.main {
-    background-color: #f8f9fa;
-    min-height: calc(100vh - 70px); /* Adjust for navbar height */
+.main-login {
+    background: linear-gradient(120deg, #f5f5fc 0%, #e9dcff 100%);
+    min-height: calc(100vh - 70px);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 70px; /* Extra safeguard for fixed navbar */
+    padding-top: 70px;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.login-card {
+    width: 350px;
+    max-width: 95vw;
+    background: #fff;
+    border-radius: 18px;
+    padding: 36px 28px 28px 28px;
+    box-shadow: 0 4px 32px rgba(126,58,242,0.08);
+    border: none;
+    margin-top: 0;
+}
+
+.login-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.login-logo img {
+    height: 48px;
+    width: auto;
+    margin-bottom: 8px;
+}
+
+.login-title {
+    font-weight: 800;
+    color: #7e3af2;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    text-align: center;   /* <-- This line centers the heading */
+    width: 100%;          /* Ensures full width for centering */
 }
 
 form {
     width: 100%;
 }
 
-h3 {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
+input,
+.MuiInputBase-input {
+    background: none !important;
+    font-size: 1.08rem;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 8px 0 6px 0;
+    width: 100%;
 }
 
-input {
-    background: none;
+.MuiInput-underline:before,
+.MuiInput-underline:after {
+    border-bottom: 2px solid #d1c4e9 !important;
+    transition: border-color 0.2s;
 }
 
-button {
-    font-weight: bold;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+.MuiInput-underline:after {
+    border-bottom: 2px solid #7e3af2 !important;
 }
 
-button:hover {
-    background-color: #0056d2 !important;
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid #b39ddb !important;
 }
 
-p {
-    margin-top: 15px;
-    font-size: 14px;
+button, .submit-btn {
+    font-weight: 700;
+    padding: 12px 0;
+    font-size: 1.07rem;
+    border-radius: 7px;
+    background-color: #7e3af2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(126,58,242,0.08);
+}
+button:disabled,
+.submit-btn:disabled {
+    background: #b8a6e2;
+    cursor: not-allowed;
+}
+button:hover:not(:disabled),
+.submit-btn:hover:not(:disabled) {
+    background: #5a32a3;
 }
 
-a {
+.login-link {
+    margin-top: 18px;
+    font-size: 1rem;
+}
+.login-link a {
     text-decoration: none;
-    color: #0d6efd;
-    font-weight: 500;
+    color: #7e3af2;
+    font-weight: 700;
+    transition: color 0.2s;
 }
-
-a:hover {
+.login-link a:hover {
+    color: #5a32a3;
     text-decoration: underline;
-}
-
-.col-md-4 {
-    width: 320px;
-    max-width: 90%;
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0px 4px 20px rgba(0, 128, 0, 0.2);
-    border: 2px solid #198754;
 }
 
 .MuiFormControl-root {
@@ -68,39 +118,19 @@ a:hover {
 input:focus,
 button:focus,
 a:focus {
-    outline: 2px solid #198754;
-    outline-offset: 2px;
+    outline: none !important;
+    box-shadow: 0 0 0 2px #e9dcff;
 }
 
 @media (max-width: 576px) {
-    .main {
+    .main-login {
         padding: 20px;
     }
-    .col-md-4 {
+    .login-card {
         width: 100%;
-        padding: 20px;
+        padding: 18px 6px 18px 6px;
     }
-}
-
-.submit-btn {
-    background-color: #28a745; /* Green color */
-    color: white;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-/* Hover effect */
-.submit-btn:hover {
-    background-color: #218838;
-}
-
-/* Focus effect */
-.submit-btn:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    .login-logo img {
+        height: 60px;
+    }
 }

@@ -14,8 +14,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import MyButton from "../components/MyButton";
-// import Navbar from "../components/Navbar";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -52,11 +50,8 @@ function Login() {
             const data = await res.json();
 
             if (res.ok) {
-                // Store the token and user information in localStorage
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
-
-                // Show success toast
                 toast.success("Login successful! Redirecting...", {
                     position: "top-center",
                     autoClose: 1800,
@@ -67,8 +62,6 @@ function Login() {
                     progress: undefined,
                     theme: "colored",
                 });
-
-                // Redirect to the dashboard after a short delay
                 setTimeout(() => {
                     navigate("/dashboard");
                 }, 1800);
@@ -91,24 +84,24 @@ function Login() {
     };
 
     return (
-        <div className="main">
+        <div className="main-login">
             <ToastContainer />
-            {/* <Navbar /> */}
             <Container
                 className="d-flex justify-content-center align-items-center"
                 style={{ minHeight: "calc(100vh - 70px)", marginTop: "70px" }}
             >
                 <Col
                     md={4}
-                    className="d-flex flex-column justify-content-center align-items-center rounded border border-success p-4 bg-light"
+                    className="login-card d-flex flex-column justify-content-center align-items-center"
                 >
-                    <h3 className="mb-4 text-center">Login</h3>
-
+                    <div className="login-logo">
+                        <img src="/images/visualyze-logo.png" alt="VisuaLyze" />
+                    </div>
+                    <h3 className="mb-4 text-center login-title">Welcome Back</h3>
                     <form className="w-100" onSubmit={handleSubmit}>
-                        {/* Email Field */}
                         <div className="mb-4">
                             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                                <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: "#7e3af2", mr: 1, my: 0.5 }} />
                                 <TextField
                                     id="email"
                                     label="Email"
@@ -116,14 +109,18 @@ function Login() {
                                     fullWidth
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    InputLabelProps={{ style: { color: "#7e3af2" } }}
+                                    InputProps={{
+                                        disableUnderline: false
+                                    }}
                                 />
                             </Box>
                         </div>
-
-                        {/* Password Field */}
                         <div className="mb-4">
                             <FormControl sx={{ width: "100%" }} variant="standard">
-                                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                <InputLabel htmlFor="standard-adornment-password" style={{ color: "#7e3af2" }}>
+                                    Password
+                                </InputLabel>
                                 <Input
                                     id="standard-adornment-password"
                                     type={showPassword ? "text" : "password"}
@@ -140,19 +137,14 @@ function Login() {
                                             </IconButton>
                                         </InputAdornment>
                                     }
+                                    disableUnderline={false}
                                 />
                             </FormControl>
                         </div>
-
-                        {/* Login Button */}
-                        <br /><br />
                         <button className="submit-btn" type="submit" disabled={loading}>
                             {loading ? "Logging in..." : "Login"}
                         </button>
-                        {/* <MyButton label={loading ? "Logging in..." : "Login"} disabled={loading} /> */}
-
-                        {/* Sign Up Link */}
-                        <p className="mt-3 text-center">
+                        <p className="mt-3 text-center login-link">
                             New User? <Link to="/signup">Sign Up</Link>
                         </p>
                     </form>
