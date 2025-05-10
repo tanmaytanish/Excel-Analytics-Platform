@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {FaChartBar, FaRobot, FaCloudUploadAlt, FaPlayCircle} from "react-icons/fa";
 import "./Home.css";
+import heroImage from "../assets/heroImg.jpg"; // Assuming you have a hero image in your assets
 
 const Home = () => (
     <div className="home-hero">
@@ -9,7 +10,7 @@ const Home = () => (
         <section className="hero-section">
             <div className="hero-content">
                 <h1>
-                    <span className="highlight">Excel-Analytics Platform</span>
+                    <span className="highlight">VisuaLyze - Analyze you Data</span>
                 </h1>
                 <p className="hero-subtitle">
                     Instantly turn your Excel and CSV data into{" "}
@@ -26,8 +27,7 @@ const Home = () => (
                 </div>
             </div>
             <img
-                href="../images/heroImage.jpg"
-                src="../images/heroImage.jpg"
+                src={heroImage}
                 alt="Data Analytics Illustration"
                 className="hero-image"
             />
@@ -35,7 +35,7 @@ const Home = () => (
 
         {/* Features Section */}
         <section id="features" className="features-section">
-            <h2>Why Excel-Analytics Platform?</h2>
+            <h2>Why VisuaLyze ?</h2>
             <div className="features-grid">
                 <div className="feature-card">
                     <FaCloudUploadAlt className="feature-icon" />

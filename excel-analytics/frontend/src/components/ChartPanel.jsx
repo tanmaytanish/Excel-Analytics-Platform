@@ -14,6 +14,8 @@ import {
   ArcElement,
 } from "chart.js";
 import { Canvas } from "@react-three/fiber";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ChartJS.register(
   BarElement,
@@ -108,7 +110,7 @@ const chartTypes = [
   "3d-scatter",
 ];
 
-const ChartPanel = ({ data }) => {
+const ChartPanel = ({ data, loading }) => {
   const numericCols = useMemo(() => getNumericColumns(data), [data]);
   const catCols = useMemo(() => getCategoricalColumns(data), [data]);
 
@@ -124,6 +126,19 @@ const ChartPanel = ({ data }) => {
 
   // Chart refs for "Show All" mode
   const chartRefs = useRef({});
+
+  // Show toast after successful upload (when data changes and is non-empty)
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0) {
+      toast.success("File uploaded successfully!", {
+        position: "top-center",
+        autoClose: 2000,
+        theme: "colored"
+      });
+    }
+    // Only show on upload, not on every render
+    // eslint-disable-next-line
+  }, [data]);
 
   useEffect(() => {
     if (chartType === "pie") {
@@ -184,18 +199,36 @@ const ChartPanel = ({ data }) => {
         ],
       };
       return (
-        <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
-          <Bar
-            ref={ref}
-            data={chartData}
-            options={{
-              plugins: { legend: { display: showLegend } },
-              responsive: true,
-              maintainAspectRatio: true,
-              aspectRatio: 2.2,
-            }}
-          />
-        </div>
+        <>
+          <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
+            <Bar
+              ref={ref}
+              data={chartData}
+              options={{
+                plugins: { legend: { display: showLegend } },
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2.2,
+              }}
+            />
+          </div>
+          {chartData && chartData.labels.length > 0 && (
+            <div style={{ display: "flex", gap: 12, marginTop: 10, justifyContent: "center" }}>
+              <button
+                className="chart-btn chart-btn--png"
+                onClick={() => handleDownloadPNG(ref, type)}
+              >
+                Download PNG
+              </button>
+              <button
+                className="chart-btn chart-btn--pdf"
+                onClick={() => handleDownloadPDF(ref, type)}
+              >
+                Download PDF
+              </button>
+            </div>
+          )}
+        </>
       );
     } else if (type === "line" && xAxis && yAxis) {
       const groups = {};
@@ -219,18 +252,36 @@ const ChartPanel = ({ data }) => {
         ],
       };
       return (
-        <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
-          <Line
-            ref={ref}
-            data={chartData}
-            options={{
-              plugins: { legend: { display: showLegend } },
-              responsive: true,
-              maintainAspectRatio: true,
-              aspectRatio: 2.2,
-            }}
-          />
-        </div>
+        <>
+          <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
+            <Line
+              ref={ref}
+              data={chartData}
+              options={{
+                plugins: { legend: { display: showLegend } },
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2.2,
+              }}
+            />
+          </div>
+          {chartData && chartData.labels.length > 0 && (
+            <div style={{ display: "flex", gap: 12, marginTop: 10, justifyContent: "center" }}>
+              <button
+                className="chart-btn chart-btn--png"
+                onClick={() => handleDownloadPNG(ref, type)}
+              >
+                Download PNG
+              </button>
+              <button
+                className="chart-btn chart-btn--pdf"
+                onClick={() => handleDownloadPDF(ref, type)}
+              >
+                Download PDF
+              </button>
+            </div>
+          )}
+        </>
       );
     } else if (type === "pie" && xAxis && yAxis) {
       const groups = {};
@@ -254,18 +305,36 @@ const ChartPanel = ({ data }) => {
         ],
       };
       return (
-        <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
-          <Pie
-            ref={ref}
-            data={chartData}
-            options={{
-              plugins: { legend: { display: showLegend } },
-              responsive: true,
-              maintainAspectRatio: true,
-              aspectRatio: 2.2,
-            }}
-          />
-        </div>
+        <>
+          <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
+            <Pie
+              ref={ref}
+              data={chartData}
+              options={{
+                plugins: { legend: { display: showLegend } },
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2.2,
+              }}
+            />
+          </div>
+          {chartData && chartData.labels.length > 0 && (
+            <div style={{ display: "flex", gap: 12, marginTop: 10, justifyContent: "center" }}>
+              <button
+                className="chart-btn chart-btn--png"
+                onClick={() => handleDownloadPNG(ref, type)}
+              >
+                Download PNG
+              </button>
+              <button
+                className="chart-btn chart-btn--pdf"
+                onClick={() => handleDownloadPDF(ref, type)}
+              >
+                Download PDF
+              </button>
+            </div>
+          )}
+        </>
       );
     } else if (type === "scatter" && xAxis && yAxis) {
       chartData = {
@@ -283,22 +352,40 @@ const ChartPanel = ({ data }) => {
         ],
       };
       return (
-        <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
-          <Scatter
-            ref={ref}
-            data={chartData}
-            options={{
-              plugins: { legend: { display: showLegend } },
-              responsive: true,
-              maintainAspectRatio: true,
-              aspectRatio: 2.2,
-              scales: {
-                x: { title: { display: true, text: xAxis } },
-                y: { title: { display: true, text: yAxis } },
-              },
-            }}
-          />
-        </div>
+        <>
+          <div style={{ maxWidth: 800, margin: "0 auto", height: 400 }}>
+            <Scatter
+              ref={ref}
+              data={chartData}
+              options={{
+                plugins: { legend: { display: showLegend } },
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2.2,
+                scales: {
+                  x: { title: { display: true, text: xAxis } },
+                  y: { title: { display: true, text: yAxis } },
+                },
+              }}
+            />
+          </div>
+          {chartData && chartData.datasets[0].data.length > 0 && (
+            <div style={{ display: "flex", gap: 12, marginTop: 10, justifyContent: "center" }}>
+              <button
+                className="chart-btn chart-btn--png"
+                onClick={() => handleDownloadPNG(ref, type)}
+              >
+                Download PNG
+              </button>
+              <button
+                className="chart-btn chart-btn--pdf"
+                onClick={() => handleDownloadPDF(ref, type)}
+              >
+                Download PDF
+              </button>
+            </div>
+          )}
+        </>
       );
     } else if (type === "3d-bar" && xAxis && yAxis) {
       return <Bar3D data={data} xKey={xAxis} yKey={yAxis} />;
@@ -317,22 +404,6 @@ const ChartPanel = ({ data }) => {
             <div key={type} className="chart-all-card">
               <h4>{chartLabels[type]}</h4>
               {renderChart(type, chartRefs.current[type])}
-              {["bar", "line", "pie", "scatter"].includes(type) && (
-                <div style={{ display: "flex", gap: 8, marginTop: 8, justifyContent: "center" }}>
-                  <button
-                    className="chart-btn chart-btn--png"
-                    onClick={() => handleDownloadPNG(chartRefs.current[type], type)}
-                  >
-                    Download PNG
-                  </button>
-                  <button
-                    className="chart-btn chart-btn--pdf"
-                    onClick={() => handleDownloadPDF(chartRefs.current[type], type)}
-                  >
-                    Download PDF
-                  </button>
-                </div>
-              )}
             </div>
           );
         })}
@@ -345,6 +416,7 @@ const ChartPanel = ({ data }) => {
 
   return (
     <div className="chart-container">
+      <ToastContainer />
       <div className="chart-controls">
         <div>
           <label className="form-label">Chart Type</label>
@@ -428,25 +500,13 @@ const ChartPanel = ({ data }) => {
         </div>
       </div>
       <div className="chart-display">
-        {showAll ? renderAllCharts() : (
+        {loading ? (
+          <div className="chart-loader">
+            <span className="chart-spinner" /> Loading...
+          </div>
+        ) : showAll ? renderAllCharts() : (
           <div style={{ width: "100%" }}>
             {chartComponent}
-            {["bar", "line", "pie", "scatter"].includes(chartType) && (
-              <div style={{ display: "flex", gap: 12, marginTop: 10, justifyContent: "center" }}>
-                <button
-                  className="chart-btn chart-btn--png"
-                  onClick={() => handleDownloadPNG(singleChartRef, chartType)}
-                >
-                  Download PNG
-                </button>
-                <button
-                  className="chart-btn chart-btn--pdf"
-                  onClick={() => handleDownloadPDF(singleChartRef, chartType)}
-                >
-                  Download PDF
-                </button>
-              </div>
-            )}
           </div>
         )}
       </div>

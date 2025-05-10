@@ -7,7 +7,6 @@ function Navbar() {
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
-    // On mount, check if a username is stored
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) setUsername(storedUsername);
   }, []);
@@ -15,7 +14,6 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername(null);
-    // Optionally redirect to home or login
     window.location.href = "/login";
   };
 
@@ -24,7 +22,13 @@ function Navbar() {
       <div className="top-bar"></div>
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          VisuaLyze
+          <img
+            src="/images/visualyze-logo.png"
+            alt="VisuaLyze Logo"
+            className="nav-logo-img"
+            height={38}
+            style={{ verticalAlign: "middle" }}
+          />
         </Link>
         <ul className="nav-menu">
           {username ? (

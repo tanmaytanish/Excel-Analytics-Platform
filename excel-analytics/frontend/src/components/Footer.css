@@ -76,3 +76,35 @@
     margin-bottom: 0.3rem;
   }
 }
+.footer-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  /* Remove color and gradient here, handled by text/image */
+}
+
+.footer-logo-img {
+  height: 80px;
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer-logo-text {
+  color: #7e3af2;
+  background: linear-gradient(90deg, #7e3af2 60%, #5a32a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+}
+.footer-contact-icon {
+  color: #7e3af2;
+  font-size: 1.2em;
+  vertical-align: middle;
+  margin-right: 6px;
+}

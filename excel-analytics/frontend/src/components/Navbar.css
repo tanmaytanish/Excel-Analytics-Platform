@@ -134,3 +134,30 @@
 body {
   padding-top: 68px; /* Adjust this value based on your navbar's height */
 }
+.nav-logo:focus,
+.nav-logo:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-logo {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* Optionally, only remove for mouse users and keep for keyboard users: */
+.nav-logo:focus-visible {
+  outline: none;
+}
+.nav-link:hover, .nav-link:focus {
+  text-decoration: none !important;
+}
+.nav-logo-img {
+  height: 70px;
+  width: auto;
+  display: block;
+  /* Optional: add a little margin if needed */
+  /* margin-top: 2px; */
+}

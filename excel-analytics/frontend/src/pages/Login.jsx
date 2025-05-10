@@ -12,7 +12,9 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
-import MyButton from "../components/MyButton";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import MyButton from "../components/MyButton";
 // import Navbar from "../components/Navbar";
 
 function Login() {
@@ -30,7 +32,11 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {
-            alert("Please fill in both email and password.");
+            toast.error("Please fill in both email and password.", {
+                position: "top-center",
+                autoClose: 2000,
+                theme: "colored",
+            });
             return;
         }
 
@@ -50,13 +56,35 @@ function Login() {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
 
-                // Redirect to the dashboard after successful login
-                navigate("/dashboard");
+                // Show success toast
+                toast.success("Login successful! Redirecting...", {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "colored",
+                });
+
+                // Redirect to the dashboard after a short delay
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 1800);
             } else {
-                alert(data.message || "Login failed. Please try again.");
+                toast.error(data.message || "Login failed. Please try again.", {
+                    position: "top-center",
+                    autoClose: 2200,
+                    theme: "colored",
+                });
             }
         } catch (error) {
-            alert("An error occurred. Please try again later.");
+            toast.error("An error occurred. Please try again later.", {
+                position: "top-center",
+                autoClose: 2200,
+                theme: "colored",
+            });
         } finally {
             setLoading(false);
         }
@@ -64,6 +92,7 @@ function Login() {
 
     return (
         <div className="main">
+            <ToastContainer />
             {/* <Navbar /> */}
             <Container
                 className="d-flex justify-content-center align-items-center"
@@ -117,7 +146,9 @@ function Login() {
 
                         {/* Login Button */}
                         <br /><br />
-                        <button className="submit-btn" type="submit">Login</button>
+                        <button className="submit-btn" type="submit" disabled={loading}>
+                            {loading ? "Logging in..." : "Login"}
+                        </button>
                         {/* <MyButton label={loading ? "Logging in..." : "Login"} disabled={loading} /> */}
 
                         {/* Sign Up Link */}
