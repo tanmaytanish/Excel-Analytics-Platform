@@ -1,6 +1,4 @@
-Here’s your updated `README.md` with the **live demo link** added:
 
----
 
 # 📊 Visualyze
 
