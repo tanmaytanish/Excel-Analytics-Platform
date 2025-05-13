@@ -1,6 +1,14 @@
+Here’s your updated `README.md` with the **live demo link** added:
+
+---
+
 # 📊 Visualyze
 
 **Visualyze** is a full-stack web application that allows users to register, log in, upload Excel/CSV files, and view past uploads. It provides a seamless experience for analyzing spreadsheet data securely and efficiently.
+
+🔗 **Live Demo:** [https://excel-analytics-platform.vercel.app/](https://excel-analytics-platform.vercel.app/)
+
+---
 
 ## 🚀 Features
 
@@ -183,3 +191,5 @@ MIT
 Built with 💻 and ☕ — Feel free to fork and extend this project!
 
 ---
+
+Would you like me to generate the actual `README.md` file as a downloadable file too?
